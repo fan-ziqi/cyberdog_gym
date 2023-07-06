@@ -1,0 +1,6 @@
+[submodule "legged_gym"]
+	path = legged_gym
+	url = https://github.com/fan-ziqi/legged_gym.git
+[submodule "rsl_rl"]
+	path = rsl_rl
+	url = https://github.com/leggedrobotics/rsl_rl.git
