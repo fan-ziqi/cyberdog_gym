@@ -2,6 +2,8 @@
 
 小米铁蛋强化学习。
 
+[视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
+
 ## 环境
 
 * Ubuntu-20.04
