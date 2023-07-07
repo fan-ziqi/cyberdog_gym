@@ -84,6 +84,24 @@ pip install -e legged_gym
 python legged_gym/script/train.py
 ```
 
+## 报错解决
+
+1. `AttributeError: module 'numpy' has no attribute 'float'.`
+
+   numpy在1.24以后弃用了float类型，将Numpy版本降级到1.23.5
+
+   ```bash
+   conda install numpy==1.23.5
+   ```
+
+2. `ModuleNotFoundError: No module named 'tensorboard'`
+
+   安装tensorboard
+
+   ```bash
+   conda install tensorboard
+   ```
+
 ## 使用
 
 训练
