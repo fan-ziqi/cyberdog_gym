@@ -123,13 +123,6 @@ python play.py --task=cyberdog_rough --resume --run_name=upstair
 ## 更新代码
 
 ```bash
-git pull
-git submodule update --remote --recursive
-```
-
-若第二行报错请执行
-
-```bash
 git pull --recurse-submodules
 ```
 
