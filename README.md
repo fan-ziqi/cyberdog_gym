@@ -127,3 +127,20 @@ git pull
 git submodule update --remote --recursive
 ```
 
+若第二行报错请执行
+
+```bash
+git pull --recurse-submodules
+```
+
+## 注意事项
+
+如果使用多张显卡进行训练，使用了`--rl_device=cuda:1`选择了除cuda0以外的显卡，需要进行remap。将`rsl_rl/rsl_rl/runners/on_policy_runner.py`中222行`load`函数中的`torch.load`改为如下形式：
+
+```cpp
+def load(self, path, load_optimizer=True):
+        loaded_dict = torch.load(path,map_location={'cuda:2': 'cuda:0','cuda:1': 'cuda:0'})
+```
+
+
+
