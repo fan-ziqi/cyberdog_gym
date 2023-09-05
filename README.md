@@ -45,6 +45,14 @@ conda activate your_env_name
 
 激活上文的环境，按照网站引导进行安装
 
+### pybullet
+
+```bash
+conda install pybullet pygame lxml transformations opencv
+```
+
+
+
 ## 部署
 
 ```bash
@@ -94,6 +102,12 @@ python legged_gym/script/train.py
    conda install numpy==1.23.5
    ```
 
+   **推荐：**修改`isaacgym/python/isaacgym/torch_utils.py`第135行为
+
+   ```cpp
+   def get_axis_params(value, axis_idx, x_value=0., dtype=np.float64, n_dims=3):
+   ```
+
 2. `ModuleNotFoundError: No module named 'tensorboard'`
 
    安装tensorboard
@@ -119,6 +133,12 @@ python play.py --task=cyberdog_rough --resume --run_name=upstair
 其他可选参数：
 
 *  检查点`--checkpoint=2500`
+
+若需要从某一检查点开始训练：
+
+```bash
+python train.py --task=anymal_c_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
+```
 
 ## 更新代码
 
