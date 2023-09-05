@@ -4,26 +4,50 @@
 
 [视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
 
-## 环境
+## 更新代码
+
+```bash
+git pull --recurse-submodules
+```
+
+## 使用docker部署
+
+构建并运行镜像
+
+```bash
+cd docker
+bash build.sh
+bash run.sh 0
+```
+
+在镜像内部署
+
+```bash
+bash setup.sh
+```
+
+## 不使用docker部署
+
+### 环境
 
 * Ubuntu-20.04
 * NVIDIA RTX3070-Laptop
 
-## 依赖
+### 依赖
 
-### NVIDIA显卡驱动
+#### NVIDIA显卡驱动
 
 [NVIDIA显卡驱动](https://www.nvidia.cn/Download/index.aspx?lang=cn)
 
 查看驱动版本`nvidia-smi`
 
-### CUDA
+#### CUDA
 
 [CUDA](https://developer.nvidia.com/cuda-toolkit-archive)
 
 查看CUDA版本`nvcc -V`
 
-### Conda
+#### Conda
 
 [Anaconda](https://www.anaconda.com/download)
 
@@ -39,28 +63,26 @@ conda create -n your_env_name python=3.8
 conda activate your_env_name
 ```
 
-### Pytorch
+#### Pytorch
 
 [Pytorch](https://pytorch.org/get-started/locally/)
 
 激活上文的环境，按照网站引导进行安装
 
-### pybullet
+#### 其他
 
 ```bash
-conda install pybullet pygame lxml transformations opencv
+pip install pybullet pygame lxml transformations opencv-python opencv-contrib-python
 ```
 
-
-
-## 部署
+### 部署
 
 ```bash
 git clone --recursive https://github.com/fan-ziqi/cyberdog_gym.git
 cd cyberdog_gym
 ```
 
-### 配置isaacgym
+#### 配置isaacgym
 
 下载[isaacgym](https://developer.nvidia.com/isaac-gym)到cyberdog_gym中，需要注册NVIDIA开发者账号
 
@@ -74,13 +96,13 @@ pip install -e isaacgym/python
 python isaacgym/python/examples/1080_balls_of_solitude.py
 ```
 
-### 配置rsl_rl
+#### 配置rsl_rl
 
 ```bash
 pip install -e rsl_rl
 ```
 
-### 配置legged_gym
+#### 配置legged_gym
 
 ```bash
 pip install -e legged_gym
@@ -92,7 +114,7 @@ pip install -e legged_gym
 python legged_gym/script/train.py
 ```
 
-## 报错解决
+#### 报错解决
 
 1. `AttributeError: module 'numpy' has no attribute 'float'.`
 
@@ -138,12 +160,6 @@ python play.py --task=cyberdog_rough --resume --run_name=upstair
 
 ```bash
 python train.py --task=anymal_c_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
-```
-
-## 更新代码
-
-```bash
-git pull --recurse-submodules
 ```
 
 ## 注意事项
