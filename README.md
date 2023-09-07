@@ -7,10 +7,6 @@
 * Ubuntu-20.04
 * NVIDIA RTX3070-Laptop
 
-## 开发计划
-
-* 分离AMP为单独的分支
-
 ## 下载代码
 
 ```bash
