@@ -30,6 +30,8 @@ git pull --recurse-submodules
 
 查看驱动版本`nvidia-smi`
 
+注意：若使用WSL2，不需要在Linux中装显卡驱动，只需要在Windows中装好显卡驱动就可以。
+
 ### CUDA
 
 [CUDA](https://developer.nvidia.com/cuda-toolkit-archive)
