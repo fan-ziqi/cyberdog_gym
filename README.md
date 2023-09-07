@@ -2,13 +2,47 @@
 
 小米铁蛋强化学习，[视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
 
-## 更新代码
+环境：
+
+* Ubuntu-20.04
+* NVIDIA RTX3070-Laptop
+
+## 开发计划
+
+* 分离AMP为单独的分支
+
+## 下载代码
+
+```bash
+git clone --recursive https://github.com/fan-ziqi/cyberdog_gym.git
+cd cyberdog_gym
+```
+
+下载[isaacgym](https://developer.nvidia.com/isaac-gym)到cyberdog_gym中，需要注册NVIDIA开发者账号
+
+代码如有更新，执行此句更新代码
 
 ```bash
 git pull --recurse-submodules
 ```
 
-## 使用docker部署
+## 显卡依赖
+
+### NVIDIA显卡驱动
+
+[NVIDIA显卡驱动](https://www.nvidia.cn/Download/index.aspx?lang=cn)
+
+查看驱动版本`nvidia-smi`
+
+### CUDA
+
+[CUDA](https://developer.nvidia.com/cuda-toolkit-archive)
+
+查看CUDA版本`nvcc -V`
+
+## 使用Docker环境
+
+使用docker可以快速部署隔离的、虚拟的、完全相同的开发环境， 不会出现“我的电脑能跑，你的电脑跑不了”的情况。
 
 注意：
 
@@ -55,28 +89,11 @@ nvidia-container-cli: initialization error: load library failed: libnvidia-ml.so
 
 若无法找到构建好的isaacgym镜像，则需重新以root权限构建镜像。
 
-## 不使用docker部署
+## 使用Conda环境
 
-### 环境
+### 安装环境
 
-* Ubuntu-20.04
-* NVIDIA RTX3070-Laptop
-
-### 依赖
-
-#### NVIDIA显卡驱动
-
-[NVIDIA显卡驱动](https://www.nvidia.cn/Download/index.aspx?lang=cn)
-
-查看驱动版本`nvidia-smi`
-
-#### CUDA
-
-[CUDA](https://developer.nvidia.com/cuda-toolkit-archive)
-
-查看CUDA版本`nvcc -V`
-
-#### Conda
+#### Anaconda
 
 [Anaconda](https://www.anaconda.com/download)
 
@@ -98,22 +115,15 @@ conda activate your_env_name
 
 激活上文的环境，按照网站引导进行安装
 
-#### 其他
+#### 安装其他依赖
 
 ```bash
-pip install pybullet pygame lxml transformations opencv-python opencv-contrib-python
+pip install tensorboard pybullet pygame lxml transformations opencv-python opencv-contrib-python nvitop
 ```
 
-### 部署
-
-```bash
-git clone --recursive https://github.com/fan-ziqi/cyberdog_gym.git
-cd cyberdog_gym
-```
+### 配置环境
 
 #### 配置isaacgym
-
-下载[isaacgym](https://developer.nvidia.com/isaac-gym)到cyberdog_gym中，需要注册NVIDIA开发者账号
 
 ```bash
 pip install -e isaacgym/python
@@ -145,29 +155,21 @@ python legged_gym/script/train.py
 
 #### 报错解决
 
-1. `AttributeError: module 'numpy' has no attribute 'float'.`
+`AttributeError: module 'numpy' has no attribute 'float'.`
 
-   numpy在1.24以后弃用了float类型，将Numpy版本降级到1.23.5
+numpy在1.24以后弃用了float类型，将Numpy版本降级到1.23.5
 
-   ```bash
-   conda install numpy==1.23.5
-   ```
+```bash
+conda install numpy==1.23.5
+```
 
-   **推荐：**修改`isaacgym/python/isaacgym/torch_utils.py`第135行为
+**推荐：**修改`isaacgym/python/isaacgym/torch_utils.py`第135行为
 
-   ```cpp
-   def get_axis_params(value, axis_idx, x_value=0., dtype=np.float64, n_dims=3):
-   ```
+```cpp
+def get_axis_params(value, axis_idx, x_value=0., dtype=np.float64, n_dims=3):
+```
 
-2. `ModuleNotFoundError: No module named 'tensorboard'`
-
-   安装tensorboard
-
-   ```bash
-   conda install tensorboard
-   ```
-
-## 使用
+## 使用强化学习
 
 训练
 
@@ -188,10 +190,10 @@ python play.py --task=cyberdog_rough --resume --run_name=upstair
 若需要从某一检查点开始训练：
 
 ```bash
-python train.py --task=anymal_c_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
+python train.py --task=cyberdog_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
 ```
 
-## 注意事项
+## 多卡注意事项
 
 如果使用多张显卡进行训练，使用了`--rl_device=cuda:1`选择了除cuda0以外的显卡，需要进行remap。将`rsl_rl/rsl_rl/runners/on_policy_runner.py`中222行`load`函数中的`torch.load`改为如下形式：
 
