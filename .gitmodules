@@ -3,4 +3,4 @@
 	url = https://github.com/fan-ziqi/legged_gym.git
 [submodule "rsl_rl"]
 	path = rsl_rl
-	url = https://github.com/leggedrobotics/rsl_rl.git
+	url = https://github.com/fan-ziqi/rsl_rl.git
