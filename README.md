@@ -119,6 +119,8 @@ pip install tensorboard pybullet pygame lxml transformations opencv-python openc
 
 ### 配置环境
 
+以下命令均在根目录下执行
+
 #### 配置isaacgym
 
 ```bash
@@ -128,7 +130,8 @@ pip install -e isaacgym/python
 测试：
 
 ```bash
-python isaacgym/python/examples/1080_balls_of_solitude.py
+cd isaacgym/python/examples
+python 1080_balls_of_solitude.py
 ```
 
 #### 配置rsl_rl
@@ -146,7 +149,8 @@ pip install -e legged_gym
 测试：
 
 ```bash
-python legged_gym/script/train.py
+cd legged_gym/legged_gym/script
+python train.py
 ```
 
 #### 报错解决
@@ -166,6 +170,12 @@ def get_axis_params(value, axis_idx, x_value=0., dtype=np.float64, n_dims=3):
 ```
 
 ## 使用强化学习
+
+进入脚本所在目录
+
+```bash
+cd legged_gym/legged_gym/script
+```
 
 训练
 
