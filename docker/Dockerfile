@@ -1,5 +1,6 @@
 FROM nvcr.io/nvidia/pytorch:21.09-py3
 
+# set WORKDIR
 WORKDIR /home/root/rl_ws
 
 # setup environment
@@ -7,7 +8,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
-# replace mirror (replace one near you)
+# replace mirror
 RUN apt-get install -q -y --no-install-recommends wget \
 && wget http://archive.ubuntu.com/ubuntu/pool/main/c/ca-certificates/ca-certificates_20230311ubuntu0.20.04.1_all.deb \
 && dpkg -i ./ca-certificates_20230311ubuntu0.20.04.1_all.deb
@@ -15,7 +16,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
   echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse\n" > /etc/apt/sources.list && \
   echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse\n" >> /etc/apt/sources.list && \
   echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse\n" >> /etc/apt/sources.list && \
-  echo "deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
+  echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse\n" >> /etc/apt/sources.list
 
 # dependencies for gym
 RUN apt-get update \
@@ -37,9 +38,11 @@ RUN apt-get update \
  libegl1 \
  git-lfs
 
-# change pip mirror (replace one near you)
+# change pip mirror
 RUN python -m pip install --upgrade pip \
 && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# pip install requirements
 COPY requirement.txt .
 RUN pip install -r requirement.txt
 

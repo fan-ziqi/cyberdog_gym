@@ -1,8 +1,6 @@
 # cyberdog_gym
 
-小米铁蛋强化学习。
-
-[视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
+小米铁蛋强化学习，[视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
 
 ## 更新代码
 
@@ -12,6 +10,16 @@ git pull --recurse-submodules
 
 ## 使用docker部署
 
+注意：
+
+* 如果使用的是RTX4090显卡，请修改`docker/Dockerfile`文件中的第一句为：
+
+  ```dockerfile
+  nvcr.io/nvidia/pytorch:22.12-py3
+  ```
+
+* 如果使用的是RTX3070显卡，则无需修改
+
 构建并运行镜像
 
 ```bash
@@ -20,11 +28,32 @@ bash build.sh
 bash run.sh 0
 ```
 
-在镜像内部署
+在镜像内进行初始化
 
 ```bash
 bash setup.sh
 ```
+
+### 查看资源使用情况
+
+镜像中内置了nvitop，新建一个窗口，运行`docker attach isaacgym_container`进入容器，运行`nvitop`查看系统资源使用情况
+
+### 报错解决
+
+执行`bash run.sh 0`的时候若出现如下报错：
+
+```
+Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running hook #0: error running hook: exit status 1, stdout: , stderr: Auto-detected mode as 'legacy'
+nvidia-container-cli: initialization error: load library failed: libnvidia-ml.so.1: cannot open shared object file: no such file or directory: unknown
+```
+
+出现此问题大多是因为没有使用root权限运行容器，以下几种方案均可：
+
+* 在bash前加root
+* 切换至root用户
+* 将当前用户加入root组
+
+若无法找到构建好的isaacgym镜像，则需重新以root权限构建镜像。
 
 ## 不使用docker部署
 

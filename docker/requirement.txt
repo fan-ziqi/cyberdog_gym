@@ -21,3 +21,5 @@ lxml
 transformations
 opencv-python
 opencv-contrib-python
+
+nvitop
