@@ -195,7 +195,7 @@ python train.py --task=cyberdog_rough --headless --resume --load_run=Aug16_20-41
 
 ## 多卡注意事项
 
-如果使用多张显卡进行训练，使用了`--rl_device=cuda:1`选择了除cuda0以外的显卡，需要进行remap。将`rsl_rl/rsl_rl/runners/on_policy_runner.py`中222行`load`函数中的`torch.load`改为如下形式：
+如果使用多张显卡进行训练，使用`--rl_device=cuda:1`选择了除cuda0以外的显卡，需要进行remap。本项目已将`rsl_rl/rsl_rl/runners/on_policy_runner.py`中222行`load`函数中的`torch.load`改为：
 
 ```cpp
 def load(self, path, load_optimizer=True):
