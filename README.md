@@ -226,5 +226,17 @@ def load(self, path, load_optimizer=True):
         loaded_dict = torch.load(path,map_location={'cuda:2': 'cuda:0','cuda:1': 'cuda:0'})
 ```
 
+## 参考项目
 
+https://github.com/Improbable-AI/walk-these-ways
+
+https://github.com/leggedrobotics/legged_gym
+
+https://github.com/NVIDIA-Omniverse/IsaacGymEnvs
+
+https://github.com/NVIDIA-Omniverse/OmniIsaacGymEnvs
+
+https://github.com/Alescontrela/AMP_for_hardware
+
+https://github.com/erwincoumans/motion_imitation
 
