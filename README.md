@@ -1,11 +1,12 @@
 # cyberdog_gym
 
-小米铁蛋强化学习，[视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
+小米铁蛋强化学习，现已支持cyberdog2。[cyberdog1的视频演示](https://www.bilibili.com/video/BV1Eg4y1P7KA)
 
-环境：
+测试环境：
 
-* Ubuntu-20.04
-* NVIDIA RTX3070-Laptop
+* Ubuntu-20.04+NVIDIA RTX3070-Laptop
+* Ubuntu-20.04+A6000
+* WSL2测试未通过，内存分配有问题
 
 ## 下载代码
 
@@ -68,7 +69,12 @@ bash setup.sh
 
 ### 查看资源使用情况
 
-镜像中内置了nvitop，新建一个窗口，运行`docker attach isaacgym_container`进入容器，运行`nvitop`查看系统资源使用情况
+镜像中内置了nvitop，新建一个窗口，运行`docker exec -it isaacgym_container /bin/bash`进入容器，运行`nvitop`查看系统资源使用情况。
+
+注：
+
+* 运行`docker exec`时，使用`exit`或者`Ctrl+P+Q`均可退出当前终端而不结束容器；
+* 运行`docker attach`时，使用`Ctrl+P+Q`可退出当前终端，使用`exit`结束容器；
 
 ### 报错解决
 
@@ -182,24 +188,33 @@ cd legged_gym/legged_gym/script
 训练
 
 ```bash
-python train.py --task=cyberdog_rough --headless --run_name=upstair 
+python train.py --task=cyberdog_rough --headless --run_name=rough
 ```
 
 回放
 
 ```bash
-python play.py --task=cyberdog_rough --resume --run_name=upstair
+python play.py --task=cyberdog_rough --run_name=rough
 ```
+
+参数说明：
+
+* 任务名称`--task=cyberdog_rough`
+* 不显示图形界面`--headless`
+* 运行名称`--run_name=rough`
 
 其他可选参数：
 
-*  检查点`--checkpoint=2500`
+*  加上`--resume`表示从某一检查点开始训练，需要设置以下可选参数：
 
-若需要从某一检查点开始训练：
+   *  检查点`--checkpoint=2500`
+   *  log文件夹中对应的训练名称`--load_run=Aug16_20-41-16_rough`
 
-```bash
-python train.py --task=cyberdog_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
-```
+   使用以下命令从某一检查点开始训练：
+
+   ```bash
+   python train.py --task=cyberdog_rough --headless --resume --load_run=Aug16_20-41-16_rough --checkpoint=1000
+   ```
 
 ## 多卡注意事项
 
