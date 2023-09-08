@@ -36,7 +36,8 @@ RUN apt-get update \
  pigz \
  git \
  libegl1 \
- git-lfs
+ git-lfs \
+ libsm6
 
 # change pip mirror
 RUN python -m pip install --upgrade pip \
