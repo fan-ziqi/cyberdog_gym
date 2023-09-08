@@ -59,4 +59,3 @@ COPY nvidia_icd.json /usr/share/vulkan/icd.d/nvidia_icd.json
 COPY 10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 ENV NVIDIA_VISIBLE_DEVICES=all NVIDIA_DRIVER_CAPABILITIES=all
-

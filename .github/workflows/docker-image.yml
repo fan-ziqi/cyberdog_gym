@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker/*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'docker/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run build.sh and build the Docker image
+      run: cd docker && bash build.sh
