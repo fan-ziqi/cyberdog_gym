@@ -6,7 +6,7 @@
 
 * Ubuntu-20.04+NVIDIA RTX3070-Laptop
 * Ubuntu-20.04+A6000
-* WSL2测试未通过，内存分配有问题
+* WSL2暂时测试未通过，内存分配有问题
 
 ## 下载代码
 
