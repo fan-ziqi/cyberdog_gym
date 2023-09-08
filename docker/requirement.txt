@@ -12,14 +12,15 @@ torchvision>=0.5.0
 numpy==1.23.5
 
 matplotlib
-
 tensorboard
 
 pybullet
 pygame
 lxml
 transformations
-opencv-python
-opencv-contrib-python
+
+opencv-python<4.3
+opencv-contrib-python<4.3
+opencv-python-headless<4.3
 
 nvitop
