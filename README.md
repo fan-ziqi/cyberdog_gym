@@ -188,22 +188,23 @@ cd legged_gym/legged_gym/script
 训练
 
 ```bash
-python train.py --task=cyberdog_rough --headless --run_name=rough
+python train.py --task=cyberdog_rough --headless
 ```
 
 回放
 
 ```bash
-python play.py --task=cyberdog_rough --run_name=rough
+python play.py --task=cyberdog_rough
 ```
 
 参数说明：
 
 * 任务名称`--task=cyberdog_rough`
 * 不显示图形界面`--headless`
-* 运行名称`--run_name=rough`
 
 其他可选参数：
+
+*  运行名称`--run_name=rough`
 
 *  加上`--resume`表示从某一检查点开始训练，需要设置以下可选参数：
 
