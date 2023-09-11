@@ -67,6 +67,8 @@ bash run.sh 0
 bash setup.sh
 ```
 
+注意：`run.sh`脚本中默认为调用全部GPU`--gpus=all`，若运行环境有多个GPU且只需要调用其中一个GPU，则需将其改为`--gpus=1`
+
 ### 查看资源使用情况
 
 镜像中内置了nvitop，新建一个窗口，运行`docker exec -it isaacgym_container /bin/bash`进入容器，运行`nvitop`查看系统资源使用情况。
@@ -78,7 +80,9 @@ bash setup.sh
 
 ### 报错解决
 
-执行`bash run.sh 0`的时候若出现如下报错：
+#### 权限问题
+
+执行`run.sh`脚本的时候若出现如下报错：
 
 ```
 Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running hook #0: error running hook: exit status 1, stdout: , stderr: Auto-detected mode as 'legacy'
@@ -92,6 +96,34 @@ nvidia-container-cli: initialization error: load library failed: libnvidia-ml.so
 * 将当前用户加入root组
 
 若无法找到构建好的isaacgym镜像，则需重新以root权限构建镜像。
+
+#### runtime问题
+
+执行`run.sh`脚本的时候若出现如下报错：
+
+```
+docker: Error response from daemon: could not select device driver "" with capabilities:[[gpu]].
+```
+
+则需要安装`nvidia-container-runtime`和`nvidia-container-toolkit`两个包，并修改Docker daemon 的启动参数，将默认的 Runtime修改为 nvidia-container-runtime：
+
+```bash
+ vi /etc/docker/daemon.json 
+```
+
+修改内容为
+
+```json
+{
+    "default-runtime": "nvidia",
+    "runtimes": {
+        "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+```
 
 ## 使用Conda环境
 
